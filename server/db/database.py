@@ -19,7 +19,6 @@ from uuid import uuid4
 import structlog
 from sqlalchemy import create_engine
 from sqlalchemy import inspect as sa_inspect
-from sqlalchemy.ext.declarative import as_declarative
 from sqlalchemy.ext.declarative import as_declarative, DeclarativeMeta
 from sqlalchemy.orm import Query, Session, scoped_session, sessionmaker
 from sqlalchemy.orm.state import InstanceState
