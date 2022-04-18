@@ -16,23 +16,23 @@ from server.utils.auth import send_new_account_email
 
 router = APIRouter()
 
-# @router.get("/")
-# def get_multi(
-#     response: Response,
-#     common: dict = Depends(common_parameters),
-#     current_user: UsersTable = Depends(deps.get_current_active_superuser),
-# ) -> Any:
-#     """
-#     Retrieve users.
-#     """
-#     users, header_range = user_crud.get_multi(
-#         skip=common["skip"],
-#         limit=common["limit"],
-#         filter_parameters=common["filter"],
-#         sort_parameters=common["sort"],
-#     )
-#     response.headers["Content-Range"] = header_range
-#     return users
+@router.get("/")
+def get_multi(
+    response: Response,
+    common: dict = Depends(common_parameters),
+    current_user: UsersTable = Depends(deps.get_current_active_superuser),
+) -> Any:
+    """
+    Retrieve users.
+    """
+    users, header_range = user_crud.get_multi(
+        skip=common["skip"],
+        limit=common["limit"],
+        filter_parameters=common["filter"],
+        sort_parameters=common["sort"],
+    )
+    response.headers["Content-Range"] = header_range
+    return users
 
 
 @router.post("/", response_model=User)
