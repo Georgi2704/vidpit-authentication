@@ -16,6 +16,7 @@ from server.utils.auth import send_new_account_email
 
 router = APIRouter()
 
+
 @router.get("/")
 def get_multi(
     response: Response,

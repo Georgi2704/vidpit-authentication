@@ -18,4 +18,3 @@ def test_constrained_list_default():
 
     m = UniqueConListModel()
     assert m.v == []
-
