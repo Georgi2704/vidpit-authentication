@@ -41,17 +41,6 @@ def get_multi(response: Response, common: dict = Depends(common_parameters)) -> 
     response.headers["Content-Range"] = header_range
     return maps
 
-@router.get("/newmaps", response_model=List[Map])
-def get_multi_maps2(response: Response, common: dict = Depends(common_parameters)) -> str:
-    maps, header_range = map_crud.get_multi(
-        skip=common["skip"],
-        limit=common["limit"],
-        filter_parameters=common["filter"],
-        sort_parameters=common["sort"],
-    )
-    response.headers["Content-Range"] = header_range
-    return "Hello there"
-
 
 @router.get("/{id}", response_model=Map)
 def get_by_id(id: UUID) -> MapsTable:
