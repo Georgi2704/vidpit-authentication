@@ -5,7 +5,7 @@ from fastapi.encoders import jsonable_encoder
 from pydantic.networks import EmailStr
 from starlette.responses import Response
 
-from rabbitmq.sqs_aws_receive_2 import send_back_decoded
+# from rabbitmq.sqs_aws_receive_2 import send_back_decoded
 from server.api import deps
 from server.api.deps import check_current_active_superuser, common_parameters, get_current_user
 from server.crud import user_crud
@@ -28,7 +28,7 @@ def decode_token(
     Decode Token from other microservices.
     """
     # token=""
-    send_back_decoded(queue_id)
+    # send_back_decoded(queue_id)
     print(queue_id)
     return queue_id
 
