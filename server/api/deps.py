@@ -62,3 +62,14 @@ def get_current_active_superuser(
     if not user_crud.is_superuser(current_user):
         raise HTTPException(status_code=403, detail="The user doesn't have enough privileges")
     return current_user
+
+
+def check_current_active_superuser(
+    current_user: UsersTable = Depends(get_current_user),
+) -> str:
+    try:
+        if not user_crud.is_superuser(current_user):
+            return "The user doesn't have enough privileges"
+        return "is_active_superuser"
+    except Exception as e:
+        return f"Error: {e}"

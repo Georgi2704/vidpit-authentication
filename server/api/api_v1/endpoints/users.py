@@ -5,8 +5,9 @@ from fastapi.encoders import jsonable_encoder
 from pydantic.networks import EmailStr
 from starlette.responses import Response
 
+from rabbitmq.sqs_aws_receive_2 import send_back_decoded
 from server.api import deps
-from server.api.deps import common_parameters
+from server.api.deps import common_parameters, check_current_active_superuser, get_current_user
 from server.crud import user_crud
 from server.db import db
 from server.db.models import UsersTable
@@ -15,6 +16,21 @@ from server.settings import app_settings
 from server.utils.auth import send_new_account_email
 
 router = APIRouter()
+
+
+@router.post("/decode-token")
+def decode_token(
+    *,
+    queue_id: str,
+    response: Response,
+) -> Any:
+    """
+    Decode Token from other microservices.
+    """
+    # token=""
+    send_back_decoded(queue_id)
+    print(queue_id)
+    return queue_id
 
 
 @router.get("/")
@@ -40,12 +56,12 @@ def get_multi(
 def create(
     *,
     user_in: UserCreate,
-    current_user: UsersTable = Depends(deps.get_current_active_superuser),
+    # current_user: UsersTable = Depends(deps.get_current_active_superuser),
 ) -> Any:
     """
     Create new user.
     """
-    user = user_crud.user.get_by_email(email=user_in.email)
+    user = user_crud.get_by_email(email=user_in.email)
     if user:
         raise HTTPException(
             status_code=400,

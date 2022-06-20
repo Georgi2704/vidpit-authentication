@@ -12,6 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import asyncio
 import logging
 import os
 
@@ -23,6 +24,7 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.responses import JSONResponse
 
+from rabbitmq.async_rpc_server import start_listening
 from server.api.api_v1.api import api_router
 from server.api.error_handling import ProblemDetailException
 from server.db import db
@@ -49,7 +51,6 @@ structlog.configure(
 
 logger = structlog.get_logger(__name__)
 
-
 app = FastAPI(
     title="Boilerplate",
     description="The boilerplate is a project that can be copied and adapted.",
@@ -58,7 +59,7 @@ app = FastAPI(
     redoc_url="/redoc",
     version=GIT_COMMIT_HASH if GIT_COMMIT_HASH else "0.1.0",
     default_response_class=JSONResponse,
-    root_path="/prod",
+    # root_path="/prod",
     servers=[
         {
             "url": "https://postgres-boilerplate.renedohmen.nl",
@@ -85,6 +86,11 @@ app.add_middleware(
 app.add_exception_handler(FormException, form_error_handler)
 app.add_exception_handler(ProblemDetailException, problem_detail_handler)
 
+@app.on_event("startup")
+async def startup_event():
+    # asyncio.create_task(start_listening())
+    logger.info("TEST Started up")
+
 
 @app.router.get("/", response_model=str, response_class=JSONResponse, include_in_schema=False)
 def index() -> str:
@@ -92,4 +98,4 @@ def index() -> str:
 
 
 logger.info("App is running")
-handler = Mangum(app, lifespan="off")
+handler = Mangum(app, lifespan="auto")
