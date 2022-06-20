@@ -16,7 +16,7 @@ def send_back_decoded(queue_id):
     print(queue_id)
     queue_url = f"https://sqs.eu-central-1.amazonaws.com/302645174876/{queue_id}"
     print(queue_url)
-    type="decoded"
+    type = "decoded"
 
     # # Create SQS client
     # sqs = boto3.client(
@@ -65,6 +65,6 @@ def send_back_decoded(queue_id):
     # )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     load_dotenv()
     send_back_decoded()
