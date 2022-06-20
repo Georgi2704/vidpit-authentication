@@ -18,13 +18,11 @@ import os
 
 import structlog
 from fastapi.applications import FastAPI
-from fastapi.security import OAuth2PasswordBearer
 from mangum import Mangum
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.responses import JSONResponse
 
-from rabbitmq.async_rpc_server import start_listening
 from server.api.api_v1.api import api_router
 from server.api.error_handling import ProblemDetailException
 from server.db import db
