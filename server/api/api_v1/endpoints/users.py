@@ -14,23 +14,27 @@ from server.db.models import UsersTable
 from server.schemas import User, UserCreate, UserUpdate
 from server.settings import app_settings
 from server.utils.auth import send_new_account_email
+from server.schemas.base import BoilerplateBaseModel
 
 router = APIRouter()
+
+
+class Token(BoilerplateBaseModel):
+    token: str
 
 
 @router.post("/decode-token")
 def decode_token(
     *,
-    queue_id: str,
+    token: Token,
     response: Response,
 ) -> Any:
     """
     Decode Token from other microservices.
     """
-    # token=""
-    # send_back_decoded(queue_id)
-    print(queue_id)
-    return queue_id
+    jwt_token = token.token
+    user = get_current_user(jwt_token)
+    return user
 
 
 @router.get("/")
