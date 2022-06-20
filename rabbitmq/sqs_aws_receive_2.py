@@ -1,7 +1,7 @@
 import json
+import os
 
 import boto3
-import os
 from dotenv import load_dotenv
 
 from server.api.deps import check_current_active_superuser, get_current_user

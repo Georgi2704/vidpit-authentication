@@ -21,4 +21,3 @@ def test_get_health(test_client):
     response = test_client.get("/api/health/")
     assert HTTPStatus.OK == response.status_code
     assert response.json() == "OK"
-

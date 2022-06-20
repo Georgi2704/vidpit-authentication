@@ -86,6 +86,7 @@ app.add_middleware(
 app.add_exception_handler(FormException, form_error_handler)
 app.add_exception_handler(ProblemDetailException, problem_detail_handler)
 
+
 @app.on_event("startup")
 async def startup_event():
     # asyncio.create_task(start_listening())

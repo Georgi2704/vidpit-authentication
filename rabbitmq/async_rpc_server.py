@@ -4,8 +4,8 @@ import logging
 
 from aio_pika import Message, connect
 from aio_pika.abc import AbstractIncomingMessage
-from server.api.deps import get_current_user, get_current_active_superuser, check_current_active_superuser
 
+from server.api.deps import check_current_active_superuser, get_current_active_superuser, get_current_user
 
 # def fib(n: int) -> int:
 #     if n == 0:

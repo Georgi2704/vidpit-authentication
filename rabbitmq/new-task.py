@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 import os
 import sys
+
 import pika
+
 
 def main():
     connection = pika.BlockingConnection(

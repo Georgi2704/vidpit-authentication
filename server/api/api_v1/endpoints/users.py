@@ -7,7 +7,7 @@ from starlette.responses import Response
 
 from rabbitmq.sqs_aws_receive_2 import send_back_decoded
 from server.api import deps
-from server.api.deps import common_parameters, check_current_active_superuser, get_current_user
+from server.api.deps import check_current_active_superuser, common_parameters, get_current_user
 from server.crud import user_crud
 from server.db import db
 from server.db.models import UsersTable

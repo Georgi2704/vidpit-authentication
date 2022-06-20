@@ -1,9 +1,8 @@
 import json
+import os
 
 import boto3
-import os
 from dotenv import load_dotenv
-
 
 # str(check_current_active_superuser(get_current_user(token)))
 
