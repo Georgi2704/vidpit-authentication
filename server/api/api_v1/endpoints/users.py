@@ -12,9 +12,9 @@ from server.crud import user_crud
 from server.db import db
 from server.db.models import UsersTable
 from server.schemas import User, UserCreate, UserUpdate
+from server.schemas.base import BoilerplateBaseModel
 from server.settings import app_settings
 from server.utils.auth import send_new_account_email
-from server.schemas.base import BoilerplateBaseModel
 
 router = APIRouter()
 
